@@ -1,12 +1,11 @@
 import java.util.Scanner;
 //https://www.inf.pucrs.br/~pinho/LaproI/Exercicios/SeqDecisao/lista1.htm
 
-
 public class Main {
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-
+        cifraDaNlogonia();
     }
 
     public static void dois_Pontos() {
@@ -106,19 +105,30 @@ public class Main {
         }
     }
 
-    public static void cifraDaNlogônia() {
-        //link: https://olimpiada.ic.unicamp.br/pratique/p2/2021/f1/cifra/
+    public static void cifraDaNlogonia() {
+        // Link: https://olimpiada.ic.unicamp.br/pratique/p2/2021/f1/cifra/
         String consoante = "bcdfghjklmnpqrstvz";
         String vogal_mais_prox = "aaeeeiiiiooooouuuuu";
         String prox_consoante = "cdfghjklmnpqrstvxzz";
-        //Fiz na mao pq ia complicar muito fazer um milhao de if pra isso
+        // Essas strings foram criadas para evitar vários ifs: cada posição corresponde à consoante,
+        // à vogal mais próxima e à próxima consoante, respectivamente.
 
-        String palavra, cifra;
-        cifra = "";
-        palavra = scanner.next();
-        for (String letra in palavra){
+        System.out.println("Digite uma palavra:");
+        String palavra = scanner.next();
+        String cifra = "";
 
+        // Processa cada caractere da palavra
+        for (int i = 0; i < palavra.length(); i++) {
+            char letra = palavra.charAt(i);
+            cifra += letra;
+
+            int posicao = consoante.indexOf(letra);
+            if (posicao >= 0) {
+                cifra += vogal_mais_prox.charAt(posicao);
+                cifra += prox_consoante.charAt(posicao);
+            }
         }
-
+        System.out.println("Palavra cifrada: " + cifra);
+        scanner.close();
     }
 }
